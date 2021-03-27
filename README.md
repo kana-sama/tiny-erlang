@@ -1,3 +1,11 @@
+```bash
+# run
+hpack; cabal run
+```
+
+Example (look example.erl):
+
+```erlang
 
 not(true) -> false;
 not(false) -> true.
@@ -36,3 +44,4 @@ main() ->
 % length(B) = 5
 % dedup(B) = [1,true,hello]
 % length(dedup(B)) = 3
+```

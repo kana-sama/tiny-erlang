@@ -1,4 +1,4 @@
-name: terl
+name: tiny-erlang
 
 default-extensions:
   - OverloadedStrings
@@ -26,6 +26,6 @@ ghc-options:
   - -Wincomplete-patterns
 
 executables:
-  terl:
+  tiny-erlang:
     main: Main.hs
     source-dirs: app

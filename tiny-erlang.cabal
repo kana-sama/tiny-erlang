@@ -1,0 +1,36 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.33.0.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: ad6194c504583f2b8648af40cc28825d92b486f5dbe27b97a1155fbfd1f64d8b
+
+name:           tiny-erlang
+version:        0.0.0
+build-type:     Simple
+
+executable tiny-erlang
+  main-is: Main.hs
+  other-modules:
+      Language.TinyErlang.AST
+      Language.TinyErlang.Interpreter
+      Language.TinyErlang.Lexer
+      Language.TinyErlang.Parser
+      Language.TinyErlang.Tokens
+      TEPrelude
+      Paths_tiny_erlang
+  hs-source-dirs:
+      app
+  default-extensions: OverloadedStrings GeneralizedNewtypeDeriving DerivingStrategies FlexibleInstances BlockArguments LambdaCase NamedFieldPuns NoImplicitPrelude TypeFamilies
+  ghc-options: -Wincomplete-patterns
+  build-tools:
+      alex
+  build-depends:
+      array
+    , base >=4.14 && <5
+    , containers
+    , megaparsec
+    , mtl
+    , text
+  default-language: Haskell2010
