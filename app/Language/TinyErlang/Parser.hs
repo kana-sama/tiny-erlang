@@ -33,21 +33,8 @@ tokInt = flip token mempty \case
   TokIntegerLit a -> pure a
   _ -> Nothing
 
-tok :: String -> Parser ()
-tok "(" = void $ single TokOpenParen
-tok ")" = void $ single TokCloseParen
-tok "{" = void $ single TokOpenBrace
-tok "}" = void $ single TokCloseBrace
-tok "[" = void $ single TokOpenBracket
-tok "]" = void $ single TokCloseBracket
-tok "|" = void $ single TokVLine
-tok "," = void $ single TokComma
-tok "." = void $ single TokDot
-tok ";" = void $ single TokSemicolon
-tok "=" = void $ single TokEquals
-tok "_" = void $ single TokHole
-tok "->" = void $ single TokArrow
-tok _ = error "unknown tok"
+tok :: Text -> Parser ()
+tok s = void $ single (TokSymbol s)
 
 -- parsers
 

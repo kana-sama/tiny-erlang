@@ -6,7 +6,6 @@ hpack; cabal run
 Example (look example.erl):
 
 ```erlang
-
 not(true) -> false;
 not(false) -> true.
 
@@ -20,6 +19,8 @@ dedup([]) -> [].
 length([_|T]) -> plus(1, length(T));
 length([]) -> 0.
 
+'without dups'(L) -> eq(L, dedup(L)).
+
 main() ->
   A = not(true),
   print("A = ", A),
@@ -32,7 +33,9 @@ main() ->
   print("B = ", B),
   print("length(B) = ", length(B)),
   print("dedup(B) = ", dedup(B)),
-  print("length(dedup(B)) = ", length(dedup(B))).
+  print("length(dedup(B)) = ", length(dedup(B))),
+  print("is B without dups: ", 'without dups'(B)),
+  print("is [1, 2, 3] without dups: ", 'without dups'([1, 2, 3])).
 
 % Output:
 % A = false
@@ -44,4 +47,6 @@ main() ->
 % length(B) = 5
 % dedup(B) = [1,true,hello]
 % length(dedup(B)) = 3
+% is B without dups: false
+% is [1, 2, 3] without dups: true
 ```

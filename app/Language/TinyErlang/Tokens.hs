@@ -7,17 +7,5 @@ data Token
   | TokVar Text
   | TokStringLit Text
   | TokIntegerLit Integer
-  | TokOpenParen
-  | TokCloseParen
-  | TokOpenBrace
-  | TokCloseBrace
-  | TokOpenBracket
-  | TokCloseBracket
-  | TokVLine
-  | TokComma
-  | TokDot
-  | TokSemicolon
-  | TokArrow
-  | TokEquals
-  | TokHole
+  | TokSymbol Text
   deriving stock (Eq, Ord, Show)

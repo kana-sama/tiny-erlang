@@ -15,19 +15,9 @@ $alpha = [a-zA-Z]
 tokens :-
   $white+                     ;
   "%".*                       ;
-  "("                         { \_ -> TokOpenParen }
-  ")"                         { \_ -> TokCloseParen }
-  "{"                         { \_ -> TokOpenBrace }
-  "}"                         { \_ -> TokCloseBrace }
-  "["                         { \_ -> TokOpenBracket }
-  "]"                         { \_ -> TokCloseBracket }
-  "|"                         { \_ -> TokVLine }
-  ","                         { \_ -> TokComma }
-  "."                         { \_ -> TokDot }
-  ";"                         { \_ -> TokSemicolon }
-  "->"                        { \_ -> TokArrow }
-  "="                         { \_ -> TokEquals }
-  "_"                         { \_ -> TokHole }
+  "(" | ")" | "}" | "{" | "[" | "]" |
+  "|" | "," | "." | ";" | "=" | "_" |
+  "->"                        { TokSymbol . Text.pack }
   \" [^ \"]* \"               { \s -> TokStringLit ((Text.tail . Text.init . Text.pack) s) }
   $digit+				              { \s -> TokIntegerLit (read s) }
   $Alpha [$alpha $digit \_]*  { \s -> TokVar (Text.pack s) }
