@@ -1,9 +1,29 @@
 name: terl
 
+default-extensions:
+  - OverloadedStrings
+  - GeneralizedNewtypeDeriving
+  - DerivingStrategies
+  - FlexibleInstances
+  - BlockArguments
+  - LambdaCase
+  - NamedFieldPuns
+  - NoImplicitPrelude
+  - TypeFamilies
+
 dependencies:
   - base >= 4.14 && < 5
   - text
   - mtl
+  - containers
+  - megaparsec
+  - array # for alex
+
+build-tools:
+  - alex
+
+ghc-options:
+  - -Wincomplete-patterns
 
 executables:
   terl:
