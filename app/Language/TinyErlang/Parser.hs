@@ -2,14 +2,14 @@ module Language.TinyErlang.Parser where
 
 import Language.TinyErlang.AST
 import Language.TinyErlang.Lexer (lex)
-import Language.TinyErlang.Tokens as TE (Token (..))
+import Language.TinyErlang.Tokens (Token (..))
 import TEPrelude hiding (many)
-import Text.Megaparsec
+import Text.Megaparsec hiding (Token)
 
-newtype Parser a = Parser {unParser :: Parsec Void [TE.Token] a}
+newtype Parser a = Parser {unParser :: Parsec Void [Token] a}
   deriving newtype (Functor, Applicative, Monad)
   deriving newtype (MonadPlus, Alternative)
-  deriving newtype (MonadParsec Void [TE.Token])
+  deriving newtype (MonadParsec Void [Token])
 
 -- tokens
 
@@ -127,11 +127,11 @@ decls = many fun <* eof
 
 -- entry point
 
-runP :: Parser a -> [TE.Token] -> a
+runP :: Parser a -> [Token] -> a
 runP p toks =
   case runParser (unParser p) "_.erl" toks of
     Right val -> val
     Left err -> error (show err)
 
-parse :: [TE.Token] -> [FunDecl]
+parse :: [Token] -> [FunDecl]
 parse = runP decls

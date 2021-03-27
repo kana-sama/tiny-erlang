@@ -27,7 +27,7 @@ tokens :-
   ";"                         { \_ -> TokSemicolon }
   "->"                        { \_ -> TokArrow }
   "="                         { \_ -> TokEquals }
-  "_"                          { \_ -> TokHole }
+  "_"                         { \_ -> TokHole }
   \" [^ \"]* \"               { \s -> TokStringLit ((Text.tail . Text.init . Text.pack) s) }
   $digit+				              { \s -> TokIntegerLit (read s) }
   $Alpha [$alpha $digit \_]*  { \s -> TokVar (Text.pack s) }
