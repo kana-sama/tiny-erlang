@@ -17,6 +17,8 @@ dependencies:
   - mtl
   - containers
   - megaparsec
+  - stm
+  - async
   - array # for alex
 
 build-tools:

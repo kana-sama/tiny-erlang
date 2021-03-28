@@ -1,3 +1,6 @@
+{-# LANGUAGE DeriveFoldable #-}
+{-# LANGUAGE DeriveTraversable #-}
+
 module Language.TinyErlang.AST where
 
 import qualified Data.Text as Text
@@ -17,21 +20,23 @@ data Lit expr
   | LitTuple [expr]
   | LitListEmpty
   | LitListCons expr expr
-  deriving stock (Show)
+  | LitAtom Atom
+  | LitVar Var
+  deriving stock (Show, Functor, Foldable, Traversable)
 
 data Expr
-  = ExprAtom Atom
-  | ExprVar Var
-  | ExprLit (Lit Expr)
+  = ExprLit (Lit Expr)
   | ExprCall Atom [Expr]
-  | ExprAssign Pat Expr
+  | ExprMatch Pat Expr
+  | ExprCase Expr [(Pat, [Expr])]
+  | ExprRecieve [(Pat, [Expr])] (Maybe (Expr, [Expr]))
+  | ExprSend Expr Expr
   deriving stock (Show)
 
 data Pat
-  = PatAtom Atom
-  | PatVar Var
-  | PatLit (Lit Pat)
+  = PatLit (Lit Pat)
   | PatHole
+  | PatMatch Pat Pat
   deriving stock (Show)
 
 data FunClause

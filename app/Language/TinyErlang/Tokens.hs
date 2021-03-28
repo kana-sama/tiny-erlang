@@ -8,4 +8,9 @@ data Token
   | TokStringLit Text
   | TokIntegerLit Integer
   | TokSymbol Text
+  | TokCase
+  | TokRecieve
+  | TokAfter
+  | TokOf
+  | TokEnd
   deriving stock (Eq, Ord, Show)

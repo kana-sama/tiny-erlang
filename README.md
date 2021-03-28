@@ -6,47 +6,43 @@ hpack; cabal run
 Example (look example.erl):
 
 ```erlang
-not(true) -> false;
-not(false) -> true.
+print_server(Prefix) ->
+  receive
+    {print, Message} ->
+      print(Prefix, ": ", Message),
+      print_server(Prefix);
+    {stop, Pid} ->
+      Pid ! {stoped, self()}
+  end.
 
-eq(X, X) -> true;
-eq(_, _) -> false.
+wait(N) -> receive after N -> ok end.
 
-dedup([H,H|T]) -> dedup([H|T]);
-dedup([H|T]) -> [H|dedup(T)];
-dedup([]) -> [].
+% swap between A and B
+swap(A, B, A) -> B;
+swap(A, B, B) -> A.
 
-length([_|T]) -> plus(1, length(T));
-length([]) -> 0.
+balancer(S1, S2, M) -> balancer(S1, S2, M, S1).
+balancer(S1, S2, [H|T], S) ->
+  S ! {print, H},
+  wait(500),
+  balancer(S1, S2, T, swap(S1, S2, S));
+balancer(_, _, [], _) -> ok.
 
-'without dups'(L) -> eq(L, dedup(L)).
+start() ->
+  S1 = spawn(main, print_server, ["server 1"]),
+  S2 = spawn(main, print_server, ["server 2"]),
+  balancer(S1, S2, [hello, world, kana, other, message, 42]),
+  S1 ! {stop, self()}, receive {stoped, S1} -> ok end,
+  S2 ! {stop, self()}, receive {stoped, S2} -> ok end,
+  print("done").
 
-main() ->
-  A = not(true),
-  print("A = ", A),
-  print("not(A) = ", not(A)),
-  print("A == not(A) = ", eq(A, not(A))),
-  print("A == not(not(A)) = ", eq(A, not(not(A)))),
-
-  print(),
-  B = [1, 1, true, "hello" | ["hello"]],
-  print("B = ", B),
-  print("length(B) = ", length(B)),
-  print("dedup(B) = ", dedup(B)),
-  print("length(dedup(B)) = ", length(dedup(B))),
-  print("is B without dups: ", 'without dups'(B)),
-  print("is [1, 2, 3] without dups: ", 'without dups'([1, 2, 3])).
 
 % Output:
-% A = false
-% not(A) = true
-% A == not(A) = false
-% A == not(not(A)) = true
-
-% B = [1,1,true,hello,hello]
-% length(B) = 5
-% dedup(B) = [1,true,hello]
-% length(dedup(B)) = 3
-% is B without dups: false
-% is [1, 2, 3] without dups: true
+% server 1: hello
+% server 2: world
+% server 1: kana
+% server 2: other
+% server 1: message
+% server 2: 42
+% done
 ```

@@ -1,13 +1,15 @@
 module TEPrelude (showT, errorT, module X) where
 
 import Control.Applicative as X
+import Control.Concurrent.Async as X
+import Control.Concurrent.STM as X
 import Control.Monad.Except as X
 import Control.Monad.Reader as X
 import Control.Monad.State as X
 import Data.Foldable as X (for_, traverse_)
 import Data.Map.Strict as X (Map)
 import Data.Maybe as X (catMaybes, fromMaybe)
-import Data.String as X (IsString)
+import Data.String as X (IsString (..))
 import Data.Text as X (Text)
 import Data.Text.IO as X (putStrLn, readFile, writeFile)
 import Data.Void as X

@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: ad6194c504583f2b8648af40cc28825d92b486f5dbe27b97a1155fbfd1f64d8b
+-- hash: 927fa5d0f08b7fdf099c4e3693d6546c2b833ad5c2c8f5fed2611081891931e8
 
 name:           tiny-erlang
 version:        0.0.0
@@ -14,6 +14,7 @@ executable tiny-erlang
   main-is: Main.hs
   other-modules:
       Language.TinyErlang.AST
+      Language.TinyErlang.CST
       Language.TinyErlang.Interpreter
       Language.TinyErlang.Lexer
       Language.TinyErlang.Parser
@@ -28,9 +29,11 @@ executable tiny-erlang
       alex
   build-depends:
       array
+    , async
     , base >=4.14 && <5
     , containers
     , megaparsec
     , mtl
+    , stm
     , text
   default-language: Haskell2010
